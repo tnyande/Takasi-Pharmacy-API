@@ -88,17 +88,6 @@ app.get('/location',(req,res) => {
     })
 })
 
-//location
-app.get("/page",(req,res) => {
-  
-        res.sendFile(__dirname+"/pharmacy.html");
-        
-    
-});
-
-app.get("/", (req,res)=> {
-    res.sendFile(__dirname+"/Pharmacy.html");
-});
 
 
 
