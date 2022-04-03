@@ -9,7 +9,7 @@ const mongoUrl = "mongodb+srv://Takasi:Test1234@cluster0.pbpmw.mongodb.net/Pharm
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const { json } = require('body-parser');
-let port = process.env.PORT || 3000;
+let port = process.env.PORT || 3003;
 var db;
 
 app.use(bodyParser.urlencoded({extended:true}))
