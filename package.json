@@ -1,13 +1,13 @@
 {
   "name": "pharma",
   "version": "1.0.0",
-  "description": "pharmacy app",
+  "description": "Server_pharma5",
   "main": "Server_pharma5.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Server_pharma5.js"
   },
-  "author": "tk",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.1",
