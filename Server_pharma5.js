@@ -50,12 +50,74 @@ app.get('/items', (req,res) => {
 })
 
 app.get('/item/:id',(req,res) => {
-    let restId  = Number(req.params.id)
-    db.collection('items').find({ITEM_ID:restId}).toArray((err,result) =>{
+    let itemId  = Number(req.params.id)
+    db.collection('items').find({ITEM_ID:itemId}).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
+
+app.get('/filter/:itemId', (req,res) => {
+    let sort = {price:1}
+    let itemId = Number(req.params.itemId)
+    let skip = 0;
+    let limit = 1000000000000;
+    let catID = Number(req.params.catid)
+    let lcost = Number(req.params.lcost);
+    let hcost = Number(req.params.hcost);
+    let query = {}
+
+    if(req.query.sort){
+        sort = {price:req.query.sort}
+    }
+    if(req.query.skip && req.query.limit){
+        skip = Number(req.query.skip);
+        limit = Number(req.query.limit);
+    }
+    if(catID&lcost&hcost){
+        query = {
+            "SID":catID,
+            "item_id":itemId,
+            $and:[{price:{$gt:lcost,$lt:hcost}}]
+        }
+    }
+    else if(catID){
+        query = {"SID":catID,"item_id":itemId}
+    }
+    else if(lcost&hcost){
+        query = {$and:[{price:{$gt:lcost,$lt:hcost}}],"item_id":itemId}
+    }
+
+    db.collection('transactions').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+app.get('/quicksearch',(req,res) => {
+    db.collection('items').find().toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+
+app.get('/items/:id',(req,res) => {
+    let itemId  = Number(req.params.id)
+    db.collection('items').find({item_id:itemId}).toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
+app.get('/details/:itemid',(req,res) => {
+    let itemId  = Number(req.params.restid)
+    db.collection('transactions').find({item_id:itemId}).toArray((err,result) =>{
+        if(err) throw err;
+        res.send(result)
+    })
+})
+
 
 app.get('/orders',(req,res) => {
     let email  = req.query.email
