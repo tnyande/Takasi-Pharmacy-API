@@ -31,13 +31,13 @@ app.get('/category',(req,res) => {
 })
 app.get('/items', (req,res) => {
     let ItemID = Number(req.params.item_id)
-    let CatID = Number(req.params.cat_id)
+    let locID = Number(req.params.loc_id)
     let query = {};
-    if(ItemID&CatID){
-        query = {"SID":CatID, ITEM_ID:ItemID}
+    if(locID&ItemID){
+        query = {"location_id":CatID, ITEM_ID:ItemID}
     }
-    else if(CatID){
-        query = {"SID":CatID}
+    else if(locID){
+        query = {"location_id":locID}
     }
     else if(ItemID){
         query = {"ITEM_ID":ItemID}
