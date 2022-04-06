@@ -29,6 +29,8 @@ app.get('/category',(req,res) => {
         console.log(result)
     })
 })
+
+
 app.get('/items', (req,res) => {
     let ItemID = Number(req.params.item_id)
     let locID = Number(req.params.loc_id)
@@ -43,7 +45,7 @@ app.get('/items', (req,res) => {
         query = {"ITEM_ID":ItemID}
     }
     console.log("ITEM_ID ", ItemID)
-    db.collection('items').find(query).toArray( (err, result) =>{
+    db.collection('transactions').find(query).toArray( (err, result) =>{
         if(err) throw err;
         res.send(result)
     })
