@@ -34,6 +34,7 @@ app.get('/category',(req,res) => {
 app.get('/items', (req,res) => {
     let ItemID = Number(req.params.item_id)
     let locID = Number(req.params.loc_id)
+    let catID = Number(req.params.catid)
     let query = {};
     if(locID&ItemID){
         query = {"location_id":CatID, ITEM_ID:ItemID}
@@ -43,6 +44,9 @@ app.get('/items', (req,res) => {
     }
     else if(ItemID){
         query = {"ITEM_ID":ItemID}
+    }
+    else if(catID){
+        query = {"SID":catID}
     }
     console.log("ITEM_ID ", ItemID)
     db.collection('transactions').find(query).toArray( (err, result) =>{
