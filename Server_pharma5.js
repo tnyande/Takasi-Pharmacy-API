@@ -117,7 +117,7 @@ app.get('/items/:id',(req,res) => {
 })
 
 app.get('/details/:itemid',(req,res) => {
-    let itemId  = Number(req.params.restid)
+    let itemId  = Number(req.params.itemid)
     db.collection('transactions').find({item_id:itemId}).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
