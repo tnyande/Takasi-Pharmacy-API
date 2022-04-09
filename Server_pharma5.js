@@ -83,15 +83,15 @@ app.get('/filter/:itemId', (req,res) => {
     if(catID&lcost&hcost){
         query = {
             "SID":catID,
-            "item_id":itemId,
+            "ITEM_ID":itemId,
             $and:[{price:{$gt:lcost,$lt:hcost}}]
         }
     }
     else if(catID){
-        query = {"SID":catID,"item_id":itemId}
+        query = {"SID":catID,"ITEM_ID":itemId}
     }
     else if(lcost&hcost){
-        query = {$and:[{price:{$gt:lcost,$lt:hcost}}],"item_id":itemId}
+        query = {$and:[{price:{$gt:lcost,$lt:hcost}}],"ITEM_ID":itemId}
     }
 
     db.collection('transactions').find(query).sort(sort).skip(skip).limit(limit).toArray((err,result) =>{
@@ -110,15 +110,15 @@ app.get('/quicksearch',(req,res) => {
 
 app.get('/items/:id',(req,res) => {
     let itemId  = Number(req.params.id)
-    db.collection('items').find({item_id:itemId}).toArray((err,result) =>{
+    db.collection('items').find({"ITEM_ID":itemId}).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
 })
 
-app.get('/details/:restid',(req,res) => {
-    let itemId  = Number(req.params.restid)
-    db.collection('transactions').find({item_id:itemId}).toArray((err,result) =>{
+app.get('/details/:itemid',(req,res) => {
+    let itemId  = Number(req.params.itemid)
+    db.collection('transactions').find({"ITEM_ID":itemId}).toArray((err,result) =>{
         if(err) throw err;
         res.send(result)
     })
