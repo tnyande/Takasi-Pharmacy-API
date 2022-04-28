@@ -146,6 +146,24 @@ app.post('/placeorder', (req, res) => {
 
 })
 
+app.post('/drugItem', (req, res) => {
+    console.log(req.body)
+    db.collection('drugs').insertOne(req.body, (err,result) => {
+        if(err) throw err;
+        res.send('order added')
+    })
+
+})
+
+app.post('/drugItems', (req, res) => {
+    console.log(req.body)
+    db.collection('drugs').insertMany(req.body, (err,result) => {
+        if(err) throw err;
+        res.send('order added')
+    })
+
+})
+
 //location
 app.get('/location',(req,res) => {
     db.collection('location').find().toArray((err,result) =>{
